@@ -1,0 +1,33 @@
+.modalannouncement {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--highlightedcolor);
+  backdrop-filter: blur(10px);
+}
+.modalannouncement__closebtn {
+  width: 38px;
+  top: 38px;
+  right: 38px;
+  cursor: pointer;
+  position: absolute;
+  transition: var(--transition);
+}
+.modalannouncement__closebtn:hover {
+  scale: 1.1;
+}
+.modalannouncement__container {
+  margin: 128px auto;
+  width: 100%;
+  max-width: 1144px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.modalannouncement__title {
+  font-size: 2.5rem;
+  font-weight: 500;
+}

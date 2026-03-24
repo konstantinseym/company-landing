@@ -1,0 +1,30 @@
+.interactivecaption {
+  font-weight: 300;
+  font-size: 1.375rem;
+  position: relative;
+  padding: 0 8px;
+  border-radius: 4px;
+  transition: var(--transition);
+}
+.interactivecaption:hover {
+  cursor: pointer;
+  color: var(--whitecolor);
+}
+.interactivecaption::before {
+  content: "";
+  position: absolute;
+  height: 8px;
+  width: 8px;
+  top: 0;
+  transform: translateY(25%);
+  left: -16px;
+  background-color: var(--orangecolor);
+  border-radius: 4px;
+  transition: var(--transition);
+  z-index: -1;
+}
+.interactivecaption:hover::before {
+  height: 100%;
+  width: calc(100% + 16px);
+  transform: translateY(0);
+}
