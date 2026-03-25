@@ -4,9 +4,10 @@ export default function FadeInBlock({ children }) {
   return (
     <motion.div
       style={{ width: "100%" }}
-      initial={{ opacity: 0, y: "96px" }}
+      initial={{ opacity: 0, y: "24px" }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 2.5, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.875, ease: "easeInOut" }}
     >
       {children}
     </motion.div>
