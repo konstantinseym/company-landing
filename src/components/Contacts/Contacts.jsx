@@ -4,8 +4,15 @@ import TextLine from "../UI/TextLine/TextLine.jsx";
 export default function Contacts({ contacts }) {
   return (
     <div className={styles.contacts}>
-      <TextLine style={{ marginBottom: "64px" }}>{contacts}</TextLine>
-      <TextLine style={{ fontSize: "1rem" }}>{contacts}</TextLine>
+      <TextLine style={{ marginBottom: "64px" }}>
+        {contacts.majorCaption}
+      </TextLine>
+
+      {contacts.minorCaptions.map((minorCaption, index) => (
+        <TextLine key={index} style={{ fontSize: "1rem" }}>
+          {minorCaption}
+        </TextLine>
+      ))}
     </div>
   );
 }
