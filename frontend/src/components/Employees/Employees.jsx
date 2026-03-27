@@ -9,8 +9,8 @@ export default function Employees({ employees }) {
         <figure key={employee.id} className={styles.employees__employeecard}>
           <img
             className={styles.employees__employeeimg}
-            src={employee.imageUrl}
-            alt={employee.imageAlt}
+            src={employee.imageurl}
+            alt={employee.imagealt}
           />
           <MinorCaption style={{ maxWidth: "90%", marginTop: "20px" }}>
             {employee.name}
