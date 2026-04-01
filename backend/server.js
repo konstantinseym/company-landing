@@ -25,4 +25,10 @@ app.get("/api/getAppData", async (req, res) => {
   res.json(appData);
 });
 
+app.post("/api/updateCaptions", async (req, res) => {
+  const clientData = res.body;
+  console.log(req.body);
+  res.sendStatus(201);
+});
+
 app.listen(3000, () => console.log("server started at port 3000"));
