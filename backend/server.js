@@ -25,10 +25,19 @@ app.get("/api/getAppData", async (req, res) => {
   res.json(appData);
 });
 
-app.post("/api/updateCaptions", async (req, res) => {
-  const clientData = res.body;
-  console.log(req.body);
+app.post("/api/addAnnouncement", async (req, res) => {
+  const clientData = req.body;
+  await pool.query("INSERT INTO news (title, content) values ($1, $2);", [
+    clientData.caption,
+    clientData.content,
+  ]);
   res.sendStatus(201);
 });
+
+// app.post("/api/updateCaptions", async (req, res) => {
+//   const clientData = res.body;
+//   console.log(req.body);
+//   res.sendStatus(201);
+// });
 
 app.listen(3000, () => console.log("server started at port 3000"));

@@ -24,7 +24,7 @@ export default function ModalAnnouncement({ isOpen, handleClose, data }) {
           </svg>
           <div className={styles.modalannouncement__container}>
             <Caption style={{ margin: 0 }}>{data.title}</Caption>
-            <TextLine style={{ overflow: "auto", maxHeight: "70vh" }}>
+            <TextLine style={{ overflow: "auto", maxHeight: "70vh", whiteSpace: "pre-wrap" }}>
               {data.content}
             </TextLine>
           </div>
