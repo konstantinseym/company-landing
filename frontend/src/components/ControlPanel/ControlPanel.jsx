@@ -1,18 +1,42 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 import styles from "./ControlPanel.module.css";
-import FormAddAnnouncement from "./forms/FromAddAnnouncement.jsx";
+import FormAddAnnouncement from "./forms/FormAddAnnouncement.jsx";
+import FormDeleteAnnouncement from "./forms/FormDeleteAnnouncement.jsx";
 
-export default function ConttrolPanel() {
-  return (
+export default function ControlPanel() {
+  const [appData, setAppData] = useState(null);
+
+  async function fetchAppData() {
+    try {
+      const res = await axios.get("/api/getAppData");
+      setAppData(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  function refreshAnnouncements() {
+    fetchAppData();
+  }
+
+  useEffect(() => {
+    fetchAppData();
+  }, []);
+
+  return appData ? (
     <main className={styles.controlpanel}>
       <h1>control panel</h1>
-      <FormAddAnnouncement />
+      <FormAddAnnouncement handleAddAnnouncement={refreshAnnouncements} />
+      <FormDeleteAnnouncement
+        news={appData.news}
+        handleDeleteAnnouncement={refreshAnnouncements}
+      />
     </main>
+  ) : (
+    <></>
   );
 }
-
-// import axios from "axios";
-// import { useEffect, useState } from "react";
-// import styles from "./ControlPanel.module.css";
 
 // делаем тут навбар, роутер внутри под навбаром. переключаемся в навбаре меджу формами редактирования разных разделов и блоков. формы при этом генерим из конфигов-объектов, может быть тут понадобятся как-то классы наконец?
 // тогда компонент и структура админки будут гуд. нужно будет не скупиться просто и не спешить, сделать столько форм, сколько нужно. может быть сами формы по логике и структуре сделать как-то поумнее и не настолько на коленке.
@@ -30,10 +54,6 @@ export default function ConttrolPanel() {
 //     fetchAppData();
 //   }, []);
 
-//   async function addAnnouncementSubmit(e) {
-//     e.preventDefault();
-//   }
-
 //   async function updateCaptions(e) {
 //     e.preventDefault();
 //   }
@@ -45,12 +65,6 @@ export default function ConttrolPanel() {
 //   return (
 //     <main className={styles.controlpanel}>
 //       <h1>control panel</h1>
-//       <form className={styles.form} onSubmit={addAnnouncementSubmit}>
-//         <h2>Добавить объявление</h2>
-//         <input type="text" className={styles.text} placeholder="Заголовок" />
-//         <textarea className={styles.textarea} placeholder="Текст"></textarea>
-//         <input type="submit" className={styles.button} value={"Добавить"} />
-//       </form>
 //       <form className={styles.form} onSubmit={addAnnouncementSubmit}>
 //         <h2>Редактировать объявления</h2>
 //       </form>

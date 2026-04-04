@@ -2,7 +2,7 @@ import styles from "./Forms.module.css";
 import { addAnnouncement } from "../api/addannouncement.js";
 import { useState } from "react";
 
-export default function FormAddAnnouncement() {
+export default function FormAddAnnouncement({ handleAddAnnouncement }) {
   const [formValue, setFormValue] = useState({
     caption: "",
     content: "",
@@ -14,12 +14,12 @@ export default function FormAddAnnouncement() {
     setisLoading(true);
     const response = await addAnnouncement(formValue);
     if (response.status === 201) {
-      alert("Успешно добавлено");
       setFormValue({ caption: "", content: "" });
+      setisLoading(false);
+      handleAddAnnouncement();
     } else {
       alert("Что-то пошло не так...");
     }
-    setisLoading(false);
   }
 
   return (
@@ -42,7 +42,12 @@ export default function FormAddAnnouncement() {
           setFormValue({ ...formValue, content: e.target.value })
         }
       />
-      <input type="submit" className={styles.button} value={"Добавить"} disabled={isLoading} />
+      <input
+        type="submit"
+        className={styles.button}
+        value={"Добавить"}
+        disabled={isLoading}
+      />
     </form>
   );
 }

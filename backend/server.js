@@ -34,6 +34,12 @@ app.post("/api/addAnnouncement", async (req, res) => {
   res.sendStatus(201);
 });
 
+app.delete("/api/deleteAnnouncement/:id", async (req, res) => {
+  const id = req.params.id;
+  await pool.query("DELETE FROM news WHERE id = $1;", [id]);
+  res.sendStatus(200);
+});
+
 // app.post("/api/updateCaptions", async (req, res) => {
 //   const clientData = res.body;
 //   console.log(req.body);
