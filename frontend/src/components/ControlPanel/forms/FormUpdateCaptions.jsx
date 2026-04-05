@@ -78,9 +78,9 @@ export default function FormUpdateCaptions({ captions }) {
         className={styles.text}
         placeholder="Заголовок сотрудников"
         value={formData.employeesCaption}
-        onChange={(e) =>
-          setFormData({ ...formData, employeesCaption: e.target.value })
-        }
+        onChange={(e) => {
+          setFormData({ ...formData, employeesCaption: e.target.value });
+        }}
       />
       <input
         type="submit"

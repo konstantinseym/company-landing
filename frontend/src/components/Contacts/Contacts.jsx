@@ -10,7 +10,7 @@ export default function Contacts({ contacts }) {
 
       {contacts.minorCaptions.map((minorCaption, index) => (
         <TextLine key={index} style={{ fontSize: "var(--fontsize-m)" }}>
-          {minorCaption}
+          {minorCaption.value}
         </TextLine>
       ))}
     </div>

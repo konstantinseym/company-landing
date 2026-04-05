@@ -5,7 +5,7 @@ export default function Details({ details }) {
   return (
     <div className={styles.details}>
       {details.map((detailsItem, index) => (
-        <TextLine key={index}>{detailsItem}</TextLine>
+        <TextLine key={index}>{detailsItem.value}</TextLine>
       ))}
     </div>
   );

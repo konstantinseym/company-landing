@@ -43,8 +43,8 @@ export default function HomePage() {
         mainLayoutContactsCaption={appData.captions.contactsCaption}
         news={appData.news}
         employees={appData.employees}
-        details={appData.blocksContent.detailsBlock}
-        contacts={appData.blocksContent.contactsBlock}
+        details={appData.detailsBlock}
+        contacts={appData.contactsBlock}
       />
       <Ftr ftr={appData.footerLink} />
     </motion.div>

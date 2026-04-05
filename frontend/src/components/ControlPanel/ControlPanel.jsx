@@ -4,6 +4,7 @@ import styles from "./ControlPanel.module.css";
 import FormAddAnnouncement from "./forms/FormAddAnnouncement.jsx";
 import FormDeleteAnnouncement from "./forms/FormDeleteAnnouncement.jsx";
 import FormUpdateCaptions from "./forms/FormUpdateCaptions.jsx";
+import FormUpdateDetails from "./forms/FormUpdateDetails.jsx";
 
 export default function ControlPanel() {
   const [appData, setAppData] = useState(null);
@@ -34,7 +35,8 @@ export default function ControlPanel() {
         handleDeleteAnnouncement={refreshAnnouncements}
       />
       <FormUpdateCaptions captions={appData.captions} />
-      <p>{JSON.stringify(appData)}</p>
+      {/* <FormUpdateDetails details={appData.detailsBlock} /> */}
+      {/* <p>{JSON.stringify(appData)}</p> */}
     </main>
   ) : (
     <></>

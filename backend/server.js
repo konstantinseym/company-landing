@@ -1,25 +1,21 @@
 import express from "express";
 import { pool } from "./db/pool.js";
-import { initTables } from "./db/initTables.js";
 
 const app = express();
 
 app.use(express.json());
 
-await initTables();
-
-app.get("/api/getAppData", async (req, res) => {
-  const dbStringsvalues = await pool.query(
-    "SELECT data FROM content WHERE section = $1",
-    ["stringsvalues"],
-  );
-
+app.get("/api/getAppData", async (_, res) => {
+  const stringValues = (await pool.query("SELECT * FROM stringvalues")).rows;
   const appData = {
-    captions: dbStringsvalues.rows[0].data.captions,
-    blocksContent: dbStringsvalues.rows[0].data.blocksContent,
     news: (await pool.query("SELECT * FROM news")).rows,
     employees: (await pool.query("SELECT * FROM employees")).rows,
-    footerLink: dbStringsvalues.rows[0].data.footerLink,
+    captions: stringValues.find((arr) => arr.section === "captions")?.data,
+    detailsBlock: stringValues.find((arr) => arr.section === "detailsBlock")
+      ?.data,
+    contactsBlock: stringValues.find((arr) => arr.section === "contactsBlock")
+      ?.data,
+    footerLink: stringValues.find((arr) => arr.section === "footerLink")?.data,
   };
 
   res.json(appData);
@@ -41,11 +37,9 @@ app.delete("/api/deleteAnnouncement/:id", async (req, res) => {
 });
 
 app.put("/api/updateCaptions", async (req, res) => {
-  const dbData = (await pool.query("SELECT * FROM content;")).rows[0];
-  dbData.data.captions = req.body;
   await pool.query(
-    "UPDATE content SET data = $1 WHERE section = 'stringsvalues';",
-    [dbData.data],
+    "UPDATE stringvalues SET data = $1 WHERE section = 'captions';",
+    [req.body],
   );
   res.sendStatus(200);
 });
