@@ -3,21 +3,13 @@ import { updateCaptions } from "../api/updatecaptions.js";
 import styles from "./Forms.module.css";
 
 export default function FormUpdateCaptions({ captions }) {
-  const [formData, setFormData] = useState({
-    heroMajor: captions.heroMajor,
-    heroMinor: captions.heroMinor,
-    newsCaption: captions.newsCaption,
-    detailsCaption: captions.detailsCaption,
-    contactsCaption: captions.contactsCaption,
-    employeesCaption: captions.employeesCaption,
-  });
-
-  const [isLoading, setisLoading] = useState(false);
+  const [formData, setFormData] = useState(captions),
+    [isLoading, setisLoading] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
     setisLoading(true);
-    const response = updateCaptions(formData);
+    const response = await updateCaptions(formData);
     if ((response.status = 200)) {
       setisLoading(false);
     } else {

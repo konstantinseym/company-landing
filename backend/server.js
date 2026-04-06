@@ -8,7 +8,7 @@ app.use(express.json());
 app.get("/api/getAppData", async (_, res) => {
   const stringValues = (await pool.query("SELECT * FROM stringvalues")).rows;
   const appData = {
-    news: (await pool.query("SELECT * FROM news")).rows,
+    news: (await pool.query("SELECT * FROM news ORDER BY id DESC")).rows,
     employees: (await pool.query("SELECT * FROM employees")).rows,
     captions: stringValues.find((arr) => arr.section === "captions")?.data,
     detailsBlock: stringValues.find((arr) => arr.section === "detailsBlock")
@@ -38,8 +38,16 @@ app.delete("/api/deleteAnnouncement/:id", async (req, res) => {
 
 app.put("/api/updateCaptions", async (req, res) => {
   await pool.query(
-    "UPDATE stringvalues SET data = $1 WHERE section = 'captions';",
-    [req.body],
+    "UPDATE stringvalues SET data = $1::jsonb WHERE section = 'captions';",
+    [JSON.stringify(req.body)],
+  );
+  res.sendStatus(200);
+});
+
+app.put("/api/updatedetails", async (req, res) => {
+  pool.query(
+    "UPDATE stringvalues SET data = $1::jsonb WHERE section = 'detailsBlock';",
+    [JSON.stringify(req.body)],
   );
   res.sendStatus(200);
 });
