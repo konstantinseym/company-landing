@@ -52,4 +52,9 @@ app.put("/api/updatedetails", async (req, res) => {
   res.sendStatus(200);
 });
 
+app.put("/api/updateContacts", async (req, res) => {
+  console.log(req.body);
+  res.sendStatus(200);
+});
+
 app.listen(3000, () => console.log("server started at port 3000"));

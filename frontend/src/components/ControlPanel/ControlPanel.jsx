@@ -5,6 +5,7 @@ import FormAddAnnouncement from "./forms/FormAddAnnouncement.jsx";
 import FormDeleteAnnouncement from "./forms/FormDeleteAnnouncement.jsx";
 import FormUpdateCaptions from "./forms/FormUpdateCaptions.jsx";
 import FormUpdateDetails from "./forms/FormUpdateDetails.jsx";
+import FormUpdateContacts from "./forms/FormUpdateContacts.jsx";
 
 export default function ControlPanel() {
   const [appData, setAppData] = useState(null);
@@ -36,6 +37,7 @@ export default function ControlPanel() {
       />
       <FormUpdateCaptions captions={appData.captions} />
       <FormUpdateDetails details={appData.detailsBlock} />
+      <FormUpdateContacts contacts={appData.contactsBlock} />
     </main>
   ) : (
     <></>
