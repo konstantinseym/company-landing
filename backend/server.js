@@ -1,9 +1,25 @@
 import express from "express";
 import { pool } from "./db/pool.js";
+import multer from "multer";
+import path from "path";
 
 const app = express();
 
 app.use(express.json());
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, "uploads/"), // Папка для файлов
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname);
+    cb(null, `${Date.now()}${ext}`); // Уникальное имя
+  },
+});
+
+const upload = multer({ storage });
+
+app.post("/api/upload", upload.single("file"), (req, res) => {
+  console.log("uploaded");
+});
 
 app.get("/api/getAppData", async (_, res) => {
   const stringValues = (await pool.query("SELECT * FROM stringvalues")).rows;
