@@ -7,6 +7,26 @@ export default function FormAddEmployee() {
   const [isLoading, setIsLoading] = useState(false);
   const [formValues, setFormValues] = useState({ name: "", role: "", alt: "" });
 
+  function handleFileChange(e) {
+    const allowedTypes = ["image/jpeg", "image/png"];
+    const allowedSize = 10 * 1024 * 1024;
+
+    const selectedFile = e.target.files[0];
+    if (!selectedFile) return;
+
+    if (!allowedTypes.includes(selectedFile.type)) {
+      setFile(null);
+      return alert("not allowed file type");
+    }
+
+    if (selectedFile.size > allowedSize) {
+      setFile(null);
+      return alert("not allowed file size");
+    }
+
+    setFile(e.target.files[0]);
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
     setIsLoading(true);
@@ -59,9 +79,10 @@ export default function FormAddEmployee() {
         <input
           type="file"
           className={styles.file}
-          onChange={(e) => setFile(e.target.files[0])}
+          accept="image/png, image/jpeg"
+          onChange={handleFileChange}
         />
-        <p className={styles.pgph}>Выбрать файл</p>
+        <p className={styles.pgph}>{file ? file.name : "Выбрать файл"}</p>
       </label>
       <input
         type="submit"

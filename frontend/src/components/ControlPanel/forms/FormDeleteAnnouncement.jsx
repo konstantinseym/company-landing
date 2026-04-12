@@ -1,40 +1,59 @@
 import styles from "../ControlPanel.module.css";
 import { useState } from "react";
 import { deleteAnnouncement } from "../api/deleteannouncement";
+import { formatDate } from "../../../utils/formatDate.js";
 
 export default function FormDeleteAnnouncement({
   news,
   handleDeleteAnnouncement,
 }) {
-  const [isLoading, setisLoading] = useState(false);
+  const [deletingId, setDeletingId] = useState(null);
 
-  async function handleDeleteButton(id) {
-    setisLoading(true);
-    const response = await deleteAnnouncement(id);
-    if (response.status === 200) {
-      setisLoading(false);
-      handleDeleteAnnouncement();
-    } else {
-      alert("Что-то пошло не так...");
+  async function handleDelete(id) {
+    if (deletingId !== null) {
+      return;
+    }
+
+    try {
+      setDeletingId(id);
+      await deleteAnnouncement(id);
+      handleDeleteAnnouncement?.();
+    } catch (err) {
+      console.log(err);
+      alert("Ошибка");
+    } finally {
+      setDeletingId(null);
     }
   }
 
   return (
     <form className={styles.form}>
       <h2 className={styles.caption}>Удалить объявление</h2>
-      {news.map((newsItem) => (
-        <div key={newsItem.id}>
-          <p className={styles.pgph}>Название записи: {newsItem.title}</p>
-          <p className={styles.pgph}>Дата добавления записи: {newsItem.date}</p>
-          <input
-            className={[styles.button, styles.buttonred].join(" ")}
-            type="button"
-            value="-"
-            onClick={() => handleDeleteButton(newsItem.id)}
-            disabled={isLoading}
-          />
-        </div>
-      ))}
+
+      {news.length === 0 ? (
+        <p className={styles.pgph}>Объявлений пока нет</p>
+      ) : (
+        news.map((newsItem) => {
+          const isCurrentItemDeleting = deletingId === newsItem.id;
+          const isAnyItemDeleting = deletingId !== null;
+
+          return (
+            <div key={newsItem.id} className={styles.flexcontainer}>
+              <p className={styles.pgph}>Название записи: {newsItem.title}</p>
+              <p className={styles.pgph}>
+                Дата добавления записи: {formatDate(newsItem.date)}
+              </p>
+              <input
+                className={[styles.button, styles.buttonred].join(" ")}
+                type="button"
+                value={isCurrentItemDeleting ? "..." : "-"}
+                onClick={() => handleDelete(newsItem.id)}
+                disabled={isAnyItemDeleting}
+              />
+            </div>
+          );
+        })
+      )}
     </form>
   );
 }

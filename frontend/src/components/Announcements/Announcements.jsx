@@ -3,10 +3,10 @@ import InteractiveCaption from "../UI/InteractiveCaption/InteractiveCaption.jsx"
 import SubTextLine from "../UI/SubTextLine/SubTextLine.jsx";
 import ModalAnnouncement from "../ModalAnnouncement/ModalAnnouncement.jsx";
 import { useState } from "react";
+import { formatDate } from "../../utils/formatDate.js";
 
 export default function Announcements({ news }) {
   const [selectedAnnouncement, setSelectedAnnouncement] = useState(null);
-
   const [isModalAnnouncementsOpen, setIsModalAnnouncementsOpen] =
     useState(false);
 
@@ -36,7 +36,7 @@ export default function Announcements({ news }) {
           >
             {newsItem.title}
           </InteractiveCaption>
-          <SubTextLine>{newsItem.date}</SubTextLine>
+          <SubTextLine>{formatDate(newsItem.date)}</SubTextLine>
         </div>
       ))}
     </div>
