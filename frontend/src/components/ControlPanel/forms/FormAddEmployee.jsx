@@ -1,5 +1,5 @@
+import styles from "../ControlPanel.module.css";
 import { useState } from "react";
-import styles from "./Forms.module.css";
 import axios from "axios";
 
 export default function FormAddEmployee() {
@@ -9,14 +9,13 @@ export default function FormAddEmployee() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setIsLoading(true);
 
     const formData = new FormData();
-
     formData.append("file", file);
     formData.append("data", JSON.stringify(formValues));
 
     const response = await axios.post("/api/upload", formData);
-
     if (response.status === 200) {
       setIsLoading(false);
       setFormValues({ name: "", role: "", alt: "" });
@@ -28,33 +27,42 @@ export default function FormAddEmployee() {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <h2>Добавить сотрудника</h2>
+      <h2 className={styles.caption}>Добавить сотрудника</h2>
+      <p className={styles.pgph}>{formValues.name.length} / 128</p>
       <input
         type="text"
         className={styles.text}
         placeholder="Ф.И.О"
+        maxLength={128}
         value={formValues.name}
         onChange={(e) => setFormValues({ ...formValues, name: e.target.value })}
       />
+      <p className={styles.pgph}>{formValues.role.length} / 128</p>
       <input
         type="text"
         className={styles.text}
         placeholder="Должность"
+        maxLength={128}
         value={formValues.role}
         onChange={(e) => setFormValues({ ...formValues, role: e.target.value })}
       />
+      <p className={styles.pgph}>{formValues.alt.length} / 128</p>
       <input
         type="text"
         className={styles.text}
         placeholder="Подпись под фото"
+        maxLength={128}
         value={formValues.alt}
         onChange={(e) => setFormValues({ ...formValues, alt: e.target.value })}
       />
-      <input
-        type="file"
-        className={styles.file}
-        onChange={(e) => setFile(e.target.files[0])}
-      />
+      <label className={styles.fileupload}>
+        <input
+          type="file"
+          className={styles.file}
+          onChange={(e) => setFile(e.target.files[0])}
+        />
+        <p className={styles.pgph}>Выбрать файл</p>
+      </label>
       <input
         type="submit"
         className={styles.button}

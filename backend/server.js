@@ -1,7 +1,7 @@
 import express from "express";
 import { pool } from "./db/pool.js";
 import multer from "multer";
-import path, { isAbsolute } from "path";
+import path from "path";
 import bcrypt from "bcrypt";
 import session from "express-session";
 
@@ -34,8 +34,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// auth logic hardcoded admin password "573856"
-const hash = "$2b$10$QCQWQGLCJZ3zrF.X/cZbXOpy4MtHtnvuDBpzz22ispx3rw7pTTlYO";
+const hash = process.env.ADMIN_PASSWORD_HASH;
 
 function checkAuth(req, res, next) {
   if (req.session.isAuth) {

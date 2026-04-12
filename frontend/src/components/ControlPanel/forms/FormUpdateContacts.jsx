@@ -1,4 +1,4 @@
-import styles from "./Forms.module.css";
+import styles from "../ControlPanel.module.css";
 import { useState } from "react";
 import { updateContacts } from "../api/updatecontacts.js";
 
@@ -32,11 +32,13 @@ export default function FormUpdateContacts({ contacts }) {
   }
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <h2>Редактировать контакты</h2>
+      <h2 className={styles.caption}>Редактировать контакты</h2>
       <h3>Основное поле</h3>
+      <p className={styles.pgph}>{formData.majorCaption.length} / 64</p>
       <input
         type="text"
         className={styles.text}
+        maxLength={64}
         value={formData.majorCaption}
         onChange={(e) =>
           setFormData({ ...formData, majorCaption: e.target.value })
@@ -44,10 +46,12 @@ export default function FormUpdateContacts({ contacts }) {
       />
       <h3>Дополнительные поля</h3>
       {formData.minorCaptions.map((caption) => (
-        <div key={caption.id} style={{ width: "100%" }}>
+        <div key={caption.id}>
+          <p className={styles.pgph}>{caption.value.length} / 96</p>
           <input
             type="text"
             className={styles.text}
+            maxLength={96}
             value={caption.value}
             onChange={(e) =>
               setFormData((prev) => ({
@@ -62,8 +66,8 @@ export default function FormUpdateContacts({ contacts }) {
           />
           <input
             type="button"
-            value="DEL"
-            className={styles.button}
+            value="-"
+            className={[styles.button, styles.buttonred].join(" ")}
             onClick={() => deleteField(caption.id)}
           />
         </div>

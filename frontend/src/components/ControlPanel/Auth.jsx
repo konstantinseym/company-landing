@@ -1,3 +1,4 @@
+import styles from "./ControlPanel.module.css";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -18,22 +19,20 @@ export default function Auth() {
   }
 
   return (
-    <form
-      onSubmit={handleLogin}
-      style={{
-        height: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <input
-        type="password"
-        placeholder="password"
-        value={passwordInputValue}
-        onChange={(e) => setPasswordInputValue(e.target.value)}
-      />
-    </form>
+    <main className={styles.maincontainer}>
+      <form
+      className={styles.form}
+        onSubmit={handleLogin}
+      >
+        <h2 className={styles.caption}>введите пароль</h2>
+        <input
+          type="password"
+          className={styles.text}
+          value={passwordInputValue}
+          onChange={(e) => setPasswordInputValue(e.target.value)}
+        />
+        <input type="submit" className={styles.button} value={"войти"} />
+      </form>
+    </main>
   );
 }

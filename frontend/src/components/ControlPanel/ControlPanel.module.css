@@ -1,4 +1,4 @@
-.controlpanel {
+.maincontainer {
   width: 100vw;
   min-height: 100vh;
   background-color: rgb(255, 255, 255);
@@ -7,4 +7,69 @@
   align-items: center;
   gap: 32px;
   padding: 32px 0;
+}
+.form {
+  width: 70%;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.caption {
+  font-size: var(--fontsize-l);
+}
+.pgph {
+  font-size: var(--fontsize-s);
+}
+.formlabel {
+  width: 720px;
+  font-size: var(--fontsize-s);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.text {
+  width: 480px;
+  font-size: var(--fontsize-s);
+  padding: 4px;
+  outline: none;
+  margin: 0 8px;
+}
+.textarea {
+  font-size: var(--fontsize-s);
+  outline: none;
+  padding: 4px;
+  width: 480px;
+  height: 144px;
+  resize: none;
+}
+.button {
+  background-color: var(--bluecolor);
+  border: none;
+  border-radius: 8px;
+  color: var(--whitecolor);
+  font-size: var(--fontsize-s);
+  padding: 4px 12px;
+  cursor: pointer;
+}
+.buttonred {
+  background-color: var(--redcolor);
+}
+.button:disabled {
+  background-color: rgb(100, 100, 100);
+}
+
+.fileupload {
+  background-color: var(--orangecolor);
+  border: none;
+  border-radius: 8px;
+  color: var(--whitecolor);
+  font-size: var(--fontsize-s);
+  padding: 4px 12px;
+  cursor: pointer;
+}
+
+.fileupload input {
+  display: none;
 }

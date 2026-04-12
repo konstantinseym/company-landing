@@ -30,8 +30,7 @@ export default function ControlPanel() {
   }, []);
 
   return appData ? (
-    <main className={styles.controlpanel}>
-      <h1>control panel</h1>
+    <main className={styles.maincontainer}>
       <FormAddAnnouncement handleAddAnnouncement={refreshAnnouncements} />
       <FormDeleteAnnouncement
         news={appData.news}

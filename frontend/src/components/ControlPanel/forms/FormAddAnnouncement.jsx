@@ -1,4 +1,4 @@
-import styles from "./Forms.module.css";
+import styles from "../ControlPanel.module.css";
 import { addAnnouncement } from "../api/addannouncement.js";
 import { useState } from "react";
 
@@ -24,11 +24,13 @@ export default function FormAddAnnouncement({ handleAddAnnouncement }) {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <h2>Добавить объявление</h2>
+      <h2 className={styles.caption}>Добавить объявление</h2>
+      <p className={styles.pgph}>{formValue.caption.length} / 128</p>
       <input
         type="text"
         className={styles.text}
         placeholder="Заголовок"
+        maxLength={128}
         value={formValue.caption}
         onChange={(e) =>
           setFormValue({ ...formValue, caption: e.target.value })

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { updateDetails } from "../api/updatedetails";
-import styles from "./Forms.module.css";
+import styles from "../ControlPanel.module.css";
 
 export default function FormUpdateDetails({ details }) {
   const [formData, setFormData] = useState(details),
@@ -27,10 +27,12 @@ export default function FormUpdateDetails({ details }) {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <h2>Редактировать реквизиты</h2>
+      <h2 className={styles.caption}>Редактировать реквизиты</h2>
       {formData.map((string) => (
-        <div style={{ width: "100%" }} key={string.id}>
+        <div key={string.id}>
+          <p className={styles.pgph}>{string.value.length} / 96</p>
           <input
+            maxLength={96}
             value={string.value}
             onChange={(e) =>
               setFormData((prev) =>
@@ -46,8 +48,8 @@ export default function FormUpdateDetails({ details }) {
           />
           <input
             type="button"
-            value="DEL"
-            className={styles.button}
+            value="-"
+            className={[styles.button, styles.buttonred].join(" ")}
             onClick={() => deleteField(string.id)}
           />
         </div>

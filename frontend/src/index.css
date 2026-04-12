@@ -5,6 +5,7 @@
   --highlightedcolor: rgba(255, 255, 255, 0.675);
   --bluecolor: rgb(41, 113, 245);
   --orangecolor: rgb(255, 133, 98);
+  --redcolor: rgb(255, 0, 0);
   --transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   --fontsize-s: 0.875rem;
   --fontsize-m: 1rem;

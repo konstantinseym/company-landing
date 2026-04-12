@@ -1,4 +1,4 @@
-import styles from "./Forms.module.css";
+import styles from "../ControlPanel.module.css";
 import { useState } from "react";
 import { deleteAnnouncement } from "../api/deleteannouncement";
 
@@ -21,22 +21,20 @@ export default function FormDeleteAnnouncement({
 
   return (
     <form className={styles.form}>
-      <h2>Удалить объявление</h2>
-      <ul className="list">
-        {news.map((newsItem) => (
-          <li className={styles.listitem} key={newsItem.id}>
-            <p>Название записи: {newsItem.title}</p>
-            <p>Дата добавления записи: {newsItem.date}</p>
-            <input
-              className={styles.button}
-              type="button"
-              value="Удалить"
-              onClick={() => handleDeleteButton(newsItem.id)}
-              disabled={isLoading}
-            />
-          </li>
-        ))}
-      </ul>
+      <h2 className={styles.caption}>Удалить объявление</h2>
+      {news.map((newsItem) => (
+        <div key={newsItem.id}>
+          <p className={styles.pgph}>Название записи: {newsItem.title}</p>
+          <p className={styles.pgph}>Дата добавления записи: {newsItem.date}</p>
+          <input
+            className={[styles.button, styles.buttonred].join(" ")}
+            type="button"
+            value="-"
+            onClick={() => handleDeleteButton(newsItem.id)}
+            disabled={isLoading}
+          />
+        </div>
+      ))}
     </form>
   );
 }
