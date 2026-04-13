@@ -1,5 +1,6 @@
-import styles from "./Ftr.module.css";
 import Lnk from "../UI/Lnk/Lnk.jsx";
+
+import styles from "./Ftr.module.css";
 
 export default function Ftr({ ftr }) {
   return (

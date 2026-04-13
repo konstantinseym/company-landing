@@ -1,6 +1,6 @@
 import styles from "../ControlPanel.module.css";
 import { useState } from "react";
-import { updateFooterLink } from "../api/updatefooterlink.js";
+import { updateFooterLink } from "../api/updateFooterLink.js";
 
 export default function FormUpdateFooterLink({ link }) {
   const [formData, setFormData] = useState(link),

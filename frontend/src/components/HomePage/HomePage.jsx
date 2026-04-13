@@ -1,9 +1,10 @@
 import axios from "axios";
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
+
+import Ftr from "../Ftr/Ftr.jsx";
 import Hero from "../Hero/Hero.jsx";
 import MainLayout from "../MainLayout/MainLayout.jsx";
-import Ftr from "../Ftr/Ftr.jsx";
 
 export default function HomePage() {
   const [appData, setAppData] = useState();

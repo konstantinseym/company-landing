@@ -1,8 +1,10 @@
-import styles from "../ControlPanel.module.css";
-import { addAnnouncement } from "../api/addannouncement.js";
 import { useState } from "react";
+
+import { addAnnouncement } from "../api/addAnnouncement.js";
 import { ANNOUNCEMENT_VALIDATION_RULES } from "../validation/validationrules.js";
 import { validateFormAddAnnouncement } from "../validation/validationForms.js";
+
+import styles from "../ControlPanel.module.css";
 
 const INITIAL_FORM_STATE = {
   caption: "",

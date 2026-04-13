@@ -1,7 +1,9 @@
-import styles from "../ControlPanel.module.css";
 import { useState } from "react";
-import { deleteAnnouncement } from "../api/deleteannouncement";
+
+import { deleteAnnouncement } from "../api/deleteAnnouncement.js";
 import { formatDate } from "../../../utils/formatDate.js";
+
+import styles from "../ControlPanel.module.css";
 
 export default function FormDeleteAnnouncement({
   news,

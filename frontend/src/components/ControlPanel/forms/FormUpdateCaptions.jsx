@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { updateCaptions } from "../api/updatecaptions.js";
-import styles from "../ControlPanel.module.css";
+
 import { CAPTIONS_VALIDATION_RULES } from "../validation/validationrules.js";
+import { updateCaptions } from "../api/updateCaptions.js";
 import { validateFormUpdateCaptions } from "../validation/validationForms.js";
+
+import styles from "../ControlPanel.module.css";
 
 export default function FormUpdateCaptions({ captions }) {
   const [formValue, setFormValue] = useState(captions);

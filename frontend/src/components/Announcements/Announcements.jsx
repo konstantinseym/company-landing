@@ -1,9 +1,11 @@
-import styles from "./Announcements.module.css";
-import InteractiveCaption from "../UI/InteractiveCaption/InteractiveCaption.jsx";
-import SubTextLine from "../UI/SubTextLine/SubTextLine.jsx";
-import ModalAnnouncement from "../ModalAnnouncement/ModalAnnouncement.jsx";
 import { useState } from "react";
+
 import { formatDate } from "../../utils/formatDate.js";
+import InteractiveCaption from "../UI/InteractiveCaption/InteractiveCaption.jsx";
+import ModalAnnouncement from "../ModalAnnouncement/ModalAnnouncement.jsx";
+import SubTextLine from "../UI/SubTextLine/SubTextLine.jsx";
+
+import styles from "./Announcements.module.css";
 
 export default function Announcements({ news }) {
   const [selectedAnnouncement, setSelectedAnnouncement] = useState(null);

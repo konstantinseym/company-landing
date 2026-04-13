@@ -1,6 +1,7 @@
-import styles from "./Employees.module.css";
 import MinorCaption from "../UI/MinorCaption/MinorCaption.jsx";
 import SubTextLine from "../UI/SubTextLine/SubTextLine.jsx";
+
+import styles from "./Employees.module.css";
 
 export default function Employees({ employees }) {
   return (

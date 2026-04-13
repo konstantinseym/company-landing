@@ -1,5 +1,6 @@
-import styles from "./Contacts.module.css";
 import TextLine from "../UI/TextLine/TextLine.jsx";
+
+import styles from "./Contacts.module.css";
 
 export default function Contacts({ contacts }) {
   return (

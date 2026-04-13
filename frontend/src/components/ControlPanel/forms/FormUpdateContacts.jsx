@@ -1,6 +1,6 @@
 import styles from "../ControlPanel.module.css";
 import { useState } from "react";
-import { updateContacts } from "../api/updatecontacts.js";
+import { updateContacts } from "../api/updateContacts.js";
 
 export default function FormUpdateContacts({ contacts }) {
   const [formData, setFormData] = useState(contacts),

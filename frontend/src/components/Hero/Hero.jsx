@@ -1,8 +1,10 @@
-import styles from "./Hero.module.css";
-import Button from "../UI/Button/Button.jsx";
-import TextLine from "../UI/TextLine/TextLine.jsx";
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
+
+import Button from "../UI/Button/Button.jsx";
+import TextLine from "../UI/TextLine/TextLine.jsx";
+
+import styles from "./Hero.module.css";
 
 export default function Hero({ heroMajor, heroMinor, heroButtons }) {
   const containerVariants = {

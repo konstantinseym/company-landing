@@ -3,6 +3,10 @@ import {
   CAPTIONS_VALIDATION_RULES,
 } from "./validationrules.js";
 
+///////////////////
+// ANNOUNCEMENTS //
+///////////////////
+
 export function validateFormAddAnnouncement(values) {
   const caption = values.caption.trim();
   const content = values.content.trim();
@@ -44,6 +48,10 @@ export function validateFormAddAnnouncement(values) {
 
   return null;
 }
+
+//////////////
+// CAPTIONS //
+//////////////
 
 export function validateFormUpdateCaptions(values) {
   const heroMajor = values.heroMajor.trim();

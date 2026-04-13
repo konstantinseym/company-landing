@@ -1,8 +1,10 @@
-import styles from "./ModalAnnouncement.module.css";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "motion/react";
+
 import Caption from "../UI/Caption/Caption.jsx";
 import TextLine from "../UI/TextLine/TextLine.jsx";
+
+import styles from "./ModalAnnouncement.module.css";
 
 export default function ModalAnnouncement({ isOpen, handleClose, data }) {
   return createPortal(

@@ -1,5 +1,6 @@
-import styles from "./Details.module.css";
 import TextLine from "../UI/TextLine/TextLine.jsx";
+
+import styles from "./Details.module.css";
 
 export default function Details({ details }) {
   return (

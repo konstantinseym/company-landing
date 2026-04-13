@@ -1,7 +1,8 @@
-import styles from "./ControlPanel.module.css";
-import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+
+import styles from "./ControlPanel.module.css";
 
 export default function Auth() {
   const [passwordInputValue, setPasswordInputValue] = useState("");

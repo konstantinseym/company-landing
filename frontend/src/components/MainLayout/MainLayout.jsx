@@ -1,13 +1,15 @@
-import styles from "./MainLayout.module.css";
 import { createPortal } from "react-dom";
-import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import FadeInBlock from "../FadeInBlock/FadeInBlock.jsx";
-import Caption from "../UI/Caption/Caption.jsx";
+import { useEffect, useState } from "react";
+
 import Announcements from "../Announcements/Announcements.jsx";
-import Employees from "../Employees/Employees.jsx";
-import Details from "../Details/Details.jsx";
+import Caption from "../UI/Caption/Caption.jsx";
 import Contacts from "../Contacts/Contacts.jsx";
+import Details from "../Details/Details.jsx";
+import Employees from "../Employees/Employees.jsx";
+import FadeInBlock from "../FadeInBlock/FadeInBlock.jsx";
+
+import styles from "./MainLayout.module.css";
 
 export default function MainLayout({
   mainLayoutNewsCaption,
