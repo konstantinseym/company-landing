@@ -1,17 +1,12 @@
 import styles from "../ControlPanel.module.css";
 import { addAnnouncement } from "../api/addannouncement.js";
 import { useState } from "react";
+import { ANNOUNCEMENT_VALIDATION_RULES } from "../validation/validationrules.js";
+import { validateFormAddAnnouncement } from "../validation/validationForms.js";
 
 const INITIAL_FORM_STATE = {
   caption: "",
   content: "",
-};
-
-const VALIDATION_RULES = {
-  captionMin: 5,
-  captionMax: 128,
-  contentMin: 5,
-  contentMax: 5000,
 };
 
 export default function FormAddAnnouncement({ handleAddAnnouncement }) {
@@ -23,44 +18,6 @@ export default function FormAddAnnouncement({ handleAddAnnouncement }) {
     setFormValue((prev) => ({ ...prev, [name]: value }));
   }
 
-  function validateForm(values) {
-    const caption = values.caption.trim();
-    const content = values.content.trim();
-
-    if (!caption || !content) {
-      return "Все поля должны быть заполнены";
-    }
-
-    if (caption.length < VALIDATION_RULES.captionMin) {
-      return (
-        "Заголовок должен быть больше " +
-        VALIDATION_RULES.captionMin +
-        " символов."
-      );
-    }
-
-    if (caption.length > VALIDATION_RULES.captionMax) {
-      return (
-        "Заголовок должен быть меньше " +
-        VALIDATION_RULES.captionMax +
-        " символов."
-      );
-    }
-
-    if (content.length < VALIDATION_RULES.contentMin) {
-      return (
-        "Текст должен быть больше " + VALIDATION_RULES.contentMin + " символов"
-      );
-    }
-    if (content.length > VALIDATION_RULES.contentMax) {
-      return (
-        "Текст должен быть меньше " + VALIDATION_RULES.contentMax + " символов"
-      );
-    }
-
-    return null;
-  }
-
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -69,7 +26,7 @@ export default function FormAddAnnouncement({ handleAddAnnouncement }) {
       content: formValue.content.trim(),
     };
 
-    const validationError = validateForm(normalizedData);
+    const validationError = validateFormAddAnnouncement(normalizedData);
     if (validationError) {
       alert(validationError);
       return;
@@ -91,13 +48,15 @@ export default function FormAddAnnouncement({ handleAddAnnouncement }) {
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <h2 className={styles.caption}>Добавить объявление</h2>
-      <p className={styles.pgph}>{formValue.caption.length} / 128</p>
+      <p className={styles.pgph}>
+        {formValue.caption.length} / {ANNOUNCEMENT_VALIDATION_RULES.captionMax}
+      </p>
       <input
         type="text"
         name="caption"
         className={styles.text}
         placeholder="Заголовок"
-        maxLength={VALIDATION_RULES.captionMax}
+        maxLength={ANNOUNCEMENT_VALIDATION_RULES.captionMax}
         value={formValue.caption}
         onChange={handleInputChange}
         disabled={isLoading}
@@ -106,7 +65,7 @@ export default function FormAddAnnouncement({ handleAddAnnouncement }) {
         name="content"
         className={styles.textarea}
         placeholder="Текст"
-        maxLength={VALIDATION_RULES.contentMax}
+        maxLength={ANNOUNCEMENT_VALIDATION_RULES.contentMax}
         value={formValue.content}
         onChange={handleInputChange}
         disabled={isLoading}
