@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { DETAILS_VALIDATION_RULES } from "../validation/validationrules";
+import { DETAILS_VALIDATION_RULES } from "../validation/validationRules";
 import { updateDetails } from "../api/updateDetails";
 import { validateFormUpdateDetails } from "../validation/validationForms";
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { addAnnouncement } from "../api/addAnnouncement.js";
-import { ANNOUNCEMENT_VALIDATION_RULES } from "../validation/validationrules.js";
+import { ANNOUNCEMENT_VALIDATION_RULES } from "../validation/validationRules.js";
 import { validateFormAddAnnouncement } from "../validation/validationForms.js";
 
 import styles from "../ControlPanel.module.css";

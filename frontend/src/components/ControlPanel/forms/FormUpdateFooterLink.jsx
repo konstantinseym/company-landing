@@ -1,19 +1,41 @@
-import styles from "../ControlPanel.module.css";
 import { useState } from "react";
+
+import { validateFormUpdateFooterLink } from "../validation/validationForms.js";
 import { updateFooterLink } from "../api/updateFooterLink.js";
+import { FOOTERLINK_VALIDATION_RULES } from "../validation/validationRules.js";
+
+import styles from "../ControlPanel.module.css";
 
 export default function FormUpdateFooterLink({ link }) {
-  const [formData, setFormData] = useState(link),
-    [isLoading, setisLoading] = useState(false);
+  const [formValue, setFormValue] = useState(link);
+  const [isLoading, setIsLoading] = useState(false);
+
+  function handleInputChange(e) {
+    const { name, value } = e.target;
+    setFormValue((prev) => ({ ...prev, [name]: value }));
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setisLoading(true);
-    const response = await updateFooterLink(formData);
-    if (response.status === 200) {
-      setisLoading(false);
-    } else {
-      alert("Что-то пошло не так...");
+    const normalizedData = {
+      link: formValue.link.trim(),
+      caption: formValue.caption.trim(),
+    };
+
+    const validationError = validateFormUpdateFooterLink(normalizedData);
+    if (validationError) {
+      alert(validationError);
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      await updateFooterLink(formValue);
+    } catch (err) {
+      console.log(err);
+      alert("Ошибка");
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -24,24 +46,27 @@ export default function FormUpdateFooterLink({ link }) {
         URL
         <input
           type="text"
+          name="link"
           className={styles.text}
           placeholder="URL"
-          maxLength={2048}
-          value={formData.link}
-          onChange={(e) => setFormData({ ...formData, link: e.target.value })}
+          maxLength={FOOTERLINK_VALIDATION_RULES.linkMax}
+          value={formValue.link}
+          onChange={handleInputChange}
+          disabled={isLoading}
         />
       </label>
       <label className={styles.formlabel}>
-        Текст ({formData.caption.length} / 256)
+        Текст ({formValue.caption.length} /
+        {FOOTERLINK_VALIDATION_RULES.captionMax})
         <input
           type="text"
+          name="caption"
           className={styles.text}
           placeholder="Текст"
-          maxLength={256}
-          value={formData.caption}
-          onChange={(e) =>
-            setFormData({ ...formData, caption: e.target.value })
-          }
+          maxLength={FOOTERLINK_VALIDATION_RULES.captionMax}
+          value={formValue.caption}
+          onChange={handleInputChange}
+          disabled={isLoading}
         />
       </label>
       <input

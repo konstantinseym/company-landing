@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { CONTACTS_VALIDATION_RULES } from "../validation/validationrules.js";
+import { CONTACTS_VALIDATION_RULES } from "../validation/validationRules.js";
 import { updateContacts } from "../api/updateContacts.js";
 import { validateFormUpdateContacts } from "../validation/validationForms.js";
 

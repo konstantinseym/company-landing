@@ -3,7 +3,8 @@ import {
   CAPTIONS_VALIDATION_RULES,
   CONTACTS_VALIDATION_RULES,
   DETAILS_VALIDATION_RULES,
-} from "./validationrules.js";
+  FOOTERLINK_VALIDATION_RULES,
+} from "./validationRules.js";
 
 ///////////////////
 // ANNOUNCEMENTS //
@@ -187,6 +188,37 @@ export function validateFormUpdateDetails(values) {
         "символов"
       );
     }
+  }
+
+  return null;
+}
+
+////////////////
+// FOOTERLINK //
+////////////////
+
+export function validateFormUpdateFooterLink(values) {
+  const link = values.link;
+  const caption = values.caption;
+
+  if (!link || !caption) {
+    return "Все поля должны быть заполнены";
+  }
+
+  if (link.length > FOOTERLINK_VALIDATION_RULES.linkMax) {
+    return (
+      "Длина ссылки должна быть меньше " +
+      FOOTERLINK_VALIDATION_RULES.linkMax +
+      " символов."
+    );
+  }
+
+  if (caption.length > FOOTERLINK_VALIDATION_RULES.captionMax) {
+    return (
+      "Длина текста должна быть меньше " +
+      FOOTERLINK_VALIDATION_RULES.captionMax +
+      " символов."
+    );
   }
 
   return null;

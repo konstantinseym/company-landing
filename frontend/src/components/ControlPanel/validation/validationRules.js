@@ -22,3 +22,8 @@ export const CONTACTS_VALIDATION_RULES = {
 export const DETAILS_VALIDATION_RULES = {
   stringMax: 96,
 };
+
+export const FOOTERLINK_VALIDATION_RULES = {
+  linkMax: 2048,
+  captionMax: 256,
+};
