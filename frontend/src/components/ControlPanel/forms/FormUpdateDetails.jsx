@@ -1,58 +1,75 @@
 import { useState } from "react";
 
+import { DETAILS_VALIDATION_RULES } from "../validation/validationrules";
 import { updateDetails } from "../api/updateDetails";
+import { validateFormUpdateDetails } from "../validation/validationForms";
 
 import styles from "../ControlPanel.module.css";
 
 export default function FormUpdateDetails({ details }) {
-  const [formData, setFormData] = useState(details),
-    [isLoading, setisLoading] = useState(false);
+  const [formValue, setFormValue] = useState(details);
+  const [isLoading, setIsLoading] = useState(false);
+
+  function handleInputChange(id, value) {
+    setFormValue((prev) =>
+      prev.map((item) => (item.id === id ? { ...item, value } : item)),
+    );
+  }
 
   function addField() {
-    setFormData((prev) => [...prev, { id: Date.now(), value: "" }]);
+    setFormValue((prev) => [...prev, { id: Date.now(), value: "" }]);
   }
 
   function deleteField(id) {
-    setFormData((prev) => prev.filter((item) => item.id !== id));
+    setFormValue((prev) => prev.filter((item) => item.id !== id));
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setisLoading(true);
-    const response = await updateDetails(formData);
-    if (response.status === 200) {
-      setisLoading(false);
-    } else {
-      alert("Что-то пошло не так...");
+    const normalizedData = formValue.map((item) => ({
+      ...item,
+      value: item.value.trim(),
+    }));
+
+    const validationError = validateFormUpdateDetails(normalizedData);
+    if (validationError) {
+      alert(validationError);
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      await updateDetails(formValue);
+    } catch (err) {
+      console.log(err);
+      alert("Ошибка");
+    } finally {
+      setIsLoading(false);
     }
   }
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <h2 className={styles.caption}>Редактировать реквизиты</h2>
-      {formData.map((string) => (
+      {formValue.map((string) => (
         <div key={string.id}>
-          <p className={styles.pgph}>{string.value.length} / 96</p>
+          <p className={styles.pgph}>
+            {string.value.length} / {DETAILS_VALIDATION_RULES.stringMax}
+          </p>
           <input
-            maxLength={96}
+            maxLength={DETAILS_VALIDATION_RULES.stringMax}
             value={string.value}
-            onChange={(e) =>
-              setFormData((prev) =>
-                prev.map((item) =>
-                  item.id === string.id
-                    ? { ...item, value: e.target.value }
-                    : item,
-                ),
-              )
-            }
+            onChange={(e) => handleInputChange(string.id, e.target.value)}
             type="text"
             className={styles.text}
+            disabled={isLoading}
           />
           <input
             type="button"
             value="-"
             className={[styles.button, styles.buttonred].join(" ")}
             onClick={() => deleteField(string.id)}
+            disabled={isLoading}
           />
         </div>
       ))}

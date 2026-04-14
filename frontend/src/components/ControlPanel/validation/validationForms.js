@@ -2,6 +2,7 @@ import {
   ANNOUNCEMENT_VALIDATION_RULES,
   CAPTIONS_VALIDATION_RULES,
   CONTACTS_VALIDATION_RULES,
+  DETAILS_VALIDATION_RULES,
 } from "./validationrules.js";
 
 ///////////////////
@@ -157,6 +158,32 @@ export function validateFormUpdateContacts(values) {
         (i + 1) +
         " должно быть меньше" +
         CONTACTS_VALIDATION_RULES.minorCaptionsMax +
+        "символов"
+      );
+    }
+  }
+
+  return null;
+}
+
+/////////////
+// DETAILS //
+/////////////
+
+export function validateFormUpdateDetails(values) {
+  for (let i = 0; i < values.length; i++) {
+    const value = values[i].value;
+
+    if (!value) {
+      return "Поле №" + (i + 1) + " должно быть заполнено";
+    }
+
+    if (value.length > DETAILS_VALIDATION_RULES.stringMax) {
+      return (
+        "Поле №" +
+        (i + 1) +
+        " должно быть меньше" +
+        DETAILS_VALIDATION_RULES.stringMax +
         "символов"
       );
     }

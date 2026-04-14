@@ -37,6 +37,7 @@ export default function FormUpdateContacts({ contacts }) {
     const validationError = validateFormUpdateContacts(normalizedData);
     if (validationError) {
       alert(validationError);
+      return;
     }
 
     try {
@@ -44,6 +45,7 @@ export default function FormUpdateContacts({ contacts }) {
       await updateContacts(normalizedData);
     } catch (err) {
       console.log(err);
+      alert("Ошибка");
     } finally {
       setisLoading(false);
     }
