@@ -78,6 +78,9 @@ app.get("/api/app-data", async (_, res) => {
   res.json(appData);
 });
 
+
+
+
 app.post("/api/announcements", checkAuth, async (req, res) => {
   const clientData = req.body;
   await pool.query("INSERT INTO news (title, content) values ($1, $2);", [

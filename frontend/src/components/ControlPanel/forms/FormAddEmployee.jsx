@@ -29,19 +29,20 @@ export default function FormAddEmployee() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setIsLoading(true);
 
     const formData = new FormData();
     formData.append("file", file);
     formData.append("data", JSON.stringify(formValues));
 
-    const response = await axios.post("/api/employees", formData);
-    if (response.status === 200) {
-      setIsLoading(false);
+    try {
+      setIsLoading(true);
+      await axios.post("/api/employees", formData);
       setFormValues({ name: "", role: "", alt: "" });
       setFile(null);
-    } else {
-      alert("Что-то пошло не так...");
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setIsLoading(false);
     }
   }
 
