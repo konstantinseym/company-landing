@@ -41,7 +41,10 @@ export default function Hero({ heroMajor, heroMinor, heroButtons }) {
     <header className={styles.hero}>
       <div
         className={styles.hero__background}
-        style={{ transform: "translateY(" + offsetY * 0.5 + "px)" }}
+        style={{
+          transform: "translateY(" + offsetY * 0.5 + "px)",
+          backgroundImage: "url(/public/data/images/bg00.jpg)",
+        }}
       ></div>
       <motion.div
         className={styles.hero__container}
@@ -58,10 +61,22 @@ export default function Hero({ heroMajor, heroMinor, heroButtons }) {
 
         <nav className={styles.hero__navcontainer}>
           <motion.div variants={childrenVariants}>
-            <Button onClick={() => document.querySelector("#employeesBlock").scrollIntoView()}>{heroButtons[0]}</Button>
+            <Button
+              onClick={() =>
+                document.querySelector("#employeesBlock").scrollIntoView()
+              }
+            >
+              {heroButtons[0]}
+            </Button>
           </motion.div>
           <motion.div variants={childrenVariants}>
-            <Button onClick={() => document.querySelector("#detailsBlock").scrollIntoView()}>{heroButtons[1]}</Button>
+            <Button
+              onClick={() =>
+                document.querySelector("#detailsBlock").scrollIntoView()
+              }
+            >
+              {heroButtons[1]}
+            </Button>
           </motion.div>
         </nav>
         <motion.svg
