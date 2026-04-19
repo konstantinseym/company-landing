@@ -11,3 +11,7 @@ export async function newEmployee({ name, role, imageurl, imagealt }) {
     [name, role, imageurl, imagealt],
   );
 }
+
+export async function deleteEmployee(id) {
+  await pool.query("DELETE FROM employees WHERE id = $1;", [id]);
+}

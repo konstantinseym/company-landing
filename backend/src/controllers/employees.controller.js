@@ -1,4 +1,7 @@
-import { createEmployeeService } from "../services/employees.service.js";
+import {
+  createEmployeeService,
+  deleteEmployeeService,
+} from "../services/employees.service.js";
 
 export async function createEmployee(req, res, next) {
   try {
@@ -11,6 +14,15 @@ export async function createEmployee(req, res, next) {
       imagealt: newEmployeeData.alt,
     });
     res.sendStatus(201);
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function deleteEmployee(req, res, next) {
+  try {
+    await deleteEmployeeService(req.params.id);
+    res.sendStatus(204);
   } catch (err) {
     next(err);
   }
