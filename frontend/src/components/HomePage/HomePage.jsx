@@ -52,22 +52,23 @@ export default function HomePage() {
   ) : (
     <motion.div
       key="loader"
-      animate={{ x: [-48, 48], scale: [1, 2, 1] }}
+      animate={{
+        rotate: 360,
+      }}
       transition={{
-        duration: 1,
-        ease: "easeInOut",
+        duration: 2,
         repeat: Infinity,
         repeatType: "reverse",
+        ease: "easeInOut",
       }}
       style={{
-        height: "8px",
-        width: "8px",
-        backgroundColor: "var(--orangecolor)",
+        height: "24px",
+        width: "24px",
+        border: "4px solid var(--orangecolor)",
         position: "absolute",
-        left: "50vw",
-        top: "50vh",
-        transform: "translateY(-50%) translateX(-50%)",
-        borderRadius: "8px",
+        left: "50%",
+        top: "50%",
+        transform: "translate(-50%, -50%)",
       }}
     />
   );
