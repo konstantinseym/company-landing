@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import FormAddAnnouncement from "./forms/FormAddAnnouncement.jsx";
 import FormAddEmployee from "./forms/FormAddEmployee.jsx";
 import FormDeleteAnnouncement from "./forms/FormDeleteAnnouncement.jsx";
+import FormDeleteEmployee from "./forms/FormDeleteEmployee.jsx";
 import FormUpdateCaptions from "./forms/FormUpdateCaptions.jsx";
 import FormUpdateDetails from "./forms/FormUpdateDetails.jsx";
 import FormUpdateContacts from "./forms/FormUpdateContacts.jsx";
@@ -23,7 +24,7 @@ export default function ControlPanel() {
     }
   }
 
-  function refreshAnnouncements() {
+  function refreshPanel() {
     fetchAppData();
   }
 
@@ -33,16 +34,20 @@ export default function ControlPanel() {
 
   return appData ? (
     <main className={styles.maincontainer}>
-      <FormAddAnnouncement handleAddAnnouncement={refreshAnnouncements} />
+      <FormAddAnnouncement handleAddAnnouncement={refreshPanel} />
       <FormDeleteAnnouncement
         news={appData.news}
-        handleDeleteAnnouncement={refreshAnnouncements}
+        handleDeleteAnnouncement={refreshPanel}
       />
       <FormUpdateCaptions captions={appData.captions} />
       <FormUpdateDetails details={appData.detailsBlock} />
       <FormUpdateContacts contacts={appData.contactsBlock} />
       <FormUpdateFooterLink link={appData.footerLink} />
-      <FormAddEmployee />
+      <FormAddEmployee handleAddEmployee={refreshPanel} />
+      <FormDeleteEmployee
+        employees={appData.employees}
+        handleDeleteEmployee={refreshPanel}
+      />
     </main>
   ) : (
     <></>

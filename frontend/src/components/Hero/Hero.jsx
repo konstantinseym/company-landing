@@ -43,7 +43,7 @@ export default function Hero({ heroMajor, heroMinor, heroButtons }) {
         className={styles.hero__background}
         style={{
           transform: "translateY(" + offsetY * 0.5 + "px)",
-          backgroundImage: "url(/public/data/images/bg00.jpg)",
+          backgroundImage: "url(/data/images/bg00.jpg)",
         }}
       ></div>
       <motion.div

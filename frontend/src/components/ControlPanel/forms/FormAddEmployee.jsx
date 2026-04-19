@@ -2,7 +2,7 @@ import styles from "../ControlPanel.module.css";
 import { useState } from "react";
 import axios from "axios";
 
-export default function FormAddEmployee() {
+export default function FormAddEmployee({ handleAddEmployee }) {
   const [file, setFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [formValues, setFormValues] = useState({ name: "", role: "", alt: "" });
@@ -39,6 +39,7 @@ export default function FormAddEmployee() {
       await axios.post("/api/employees", formData);
       setFormValues({ name: "", role: "", alt: "" });
       setFile(null);
+      handleAddEmployee();
     } catch (err) {
       console.log(err);
     } finally {
@@ -83,8 +84,9 @@ export default function FormAddEmployee() {
           accept="image/png, image/jpeg"
           onChange={handleFileChange}
         />
-        <p className={styles.pgph}>{file ? file.name : "Выбрать файл"}</p>
+        <p className={styles.pgph}>{file ? file.name : "Загрузить фото"}</p>
       </label>
+      <p className={styles.pgph}>Максимальный размер файла: 10МБ (JPG / PNG)</p>
       <input
         type="submit"
         className={styles.button}
