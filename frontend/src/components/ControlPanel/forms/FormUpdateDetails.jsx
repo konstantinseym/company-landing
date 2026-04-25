@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { DETAILS_VALIDATION_RULES } from "../validation/validationRules";
-import { updateDetails } from "../api/updateDetails";
+import { updateDetails } from "../api/updatedetails";
 import { validateFormUpdateDetails } from "../validation/validationForms";
 
 import styles from "../ControlPanel.module.css";
