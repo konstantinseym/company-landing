@@ -1,22 +1,25 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-import FormAddAnnouncement from "./forms/FormAddAnnouncement.jsx";
-import FormAddEmployee from "./forms/FormAddEmployee.jsx";
-import FormArrangeEmployees from "./forms/FormArrangeEmployees.jsx";
-import FormDeleteAnnouncement from "./forms/FormDeleteAnnouncement.jsx";
-import FormDeleteEmployee from "./forms/FormDeleteEmployee.jsx";
-import FormUpdateCaptions from "./forms/FormUpdateCaptions.jsx";
-import FormUpdateDetails from "./forms/FormUpdateDetails.jsx";
-import FormUpdateContacts from "./forms/FormUpdateContacts.jsx";
-import FormUpdateFooterLink from "./forms/FormUpdateFooterLink.jsx";
-import FormUpdateHeroImage from "./forms/FormUpdateHeroImage.jsx";
-import FormUpdatePolicy from "./forms/FormUpdatePolicy.jsx";
+import AnnouncementsSection from "./sections/AnnouncementsSection.jsx";
+import EmployeesSection from "./sections/EmployeesSection.jsx";
+import InformationSection from "./sections/InformationSection.jsx";
+import FilesSection from "./sections/FilesSection.jsx";
 
 import styles from "./ControlPanel.module.css";
+import CaptionsSection from "./sections/CaptionsSection.jsx";
+
+const SECTIONS = {
+  news: "news",
+  employees: "employees",
+  information: "information",
+  files: "files",
+  captions: "captions",
+};
 
 export default function ControlPanel() {
   const [appData, setAppData] = useState(null);
+  const [activeSection, setActiveSection] = useState(SECTIONS.news);
 
   async function fetchAppData() {
     try {
@@ -41,47 +44,81 @@ export default function ControlPanel() {
         <nav>
           <ul className={styles.navlist}>
             <li>
-              <button className={styles.btn}>News</button>
+              <button
+                className={styles.btn}
+                onClick={() => setActiveSection(SECTIONS.news)}
+              >
+                News
+              </button>
             </li>
             <li>
-              <button className={styles.btn}>Employees</button>
+              <button
+                className={styles.btn}
+                onClick={() => setActiveSection(SECTIONS.employees)}
+              >
+                Employees
+              </button>
             </li>
             <li>
-              <button className={styles.btn}>Details</button>
+              <button
+                className={styles.btn}
+                onClick={() => setActiveSection(SECTIONS.information)}
+              >
+                Information
+              </button>
             </li>
             <li>
-              <button className={styles.btn}>Contacts</button>
+              <button
+                className={styles.btn}
+                onClick={() => setActiveSection(SECTIONS.files)}
+              >
+                Files
+              </button>
             </li>
             <li>
-              <button className={styles.btn}>Files</button>
-            </li>
-            <li>
-              <button className={styles.btn}>Captions</button>
+              <button
+                className={styles.btn}
+                onClick={() => setActiveSection(SECTIONS.captions)}
+              >
+                Captions
+              </button>
             </li>
           </ul>
         </nav>
       </aside>
       <main className={styles.formpanel}>
-        <FormAddAnnouncement handleAddAnnouncement={refreshPanel} />
-        <FormDeleteAnnouncement
-          news={appData.news}
-          handleDeleteAnnouncement={refreshPanel}
-        />
-        <FormUpdateCaptions captions={appData.captions} />
-        <FormUpdateDetails details={appData.detailsBlock} />
-        <FormUpdateContacts contacts={appData.contactsBlock} />
-        <FormUpdateFooterLink link={appData.footerLink} />
-        <FormAddEmployee handleAddEmployee={refreshPanel} />
-        <FormArrangeEmployees
-          employees={appData.employees}
-          handleArrangeEmployees={refreshPanel}
-        />
-        <FormDeleteEmployee
-          employees={appData.employees}
-          handleDeleteEmployee={refreshPanel}
-        />
-        <FormUpdateHeroImage />
-        <FormUpdatePolicy />
+        {activeSection === SECTIONS.news && (
+          <AnnouncementsSection
+            handleAddAnnouncement={refreshPanel}
+            handleDeleteAnnouncement={refreshPanel}
+            news={appData.news}
+          />
+        )}
+
+        {activeSection === SECTIONS.employees && (
+          <EmployeesSection
+            employees={appData.employees}
+            handleAddEmployee={refreshPanel}
+            handleArrangeEmployees={refreshPanel}
+            handleDeleteEmployee={refreshPanel}
+          />
+        )}
+
+        {activeSection === SECTIONS.information && (
+          <InformationSection
+            details={appData.detailsBlock}
+            contacts={appData.contactsBlock}
+          />
+        )}
+
+        {activeSection === SECTIONS.files && <FilesSection />}
+
+        {activeSection === SECTIONS.captions && (
+          <CaptionsSection
+            captions={appData.captions}
+            link={appData.footerLink}
+          />
+        )}
       </main>
     </div>
   ) : (
