@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { validateFormUpdateFooterLink } from "../validation/validationForms.js";
-import { updateFooterLink } from "../api/updatefooterlink.js";
+import { updateFooterLink } from "../api/updateFooterLink.js";
 import { FOOTERLINK_VALIDATION_RULES } from "../validation/validationRules.js";
 
 import styles from "../Forms.module.css";

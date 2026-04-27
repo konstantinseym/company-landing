@@ -15,37 +15,38 @@ export function validateFormAddAnnouncement(values) {
   const content = values.content.trim();
 
   if (!caption || !content) {
-    return "Все поля должны быть заполнены";
+    return "All fields are required";
   }
 
   if (caption.length < ANNOUNCEMENT_VALIDATION_RULES.captionMin) {
     return (
-      "Заголовок должен быть больше " +
+      "Title must be at least " +
       ANNOUNCEMENT_VALIDATION_RULES.captionMin +
-      " символов."
+      " characters"
     );
   }
 
   if (caption.length > ANNOUNCEMENT_VALIDATION_RULES.captionMax) {
     return (
-      "Заголовок должен быть меньше " +
+      "Title must be less than " +
       ANNOUNCEMENT_VALIDATION_RULES.captionMax +
-      " символов."
+      " characters"
     );
   }
 
   if (content.length < ANNOUNCEMENT_VALIDATION_RULES.contentMin) {
     return (
-      "Текст должен быть больше " +
+      "Content must be at least " +
       ANNOUNCEMENT_VALIDATION_RULES.contentMin +
-      " символов"
+      " characters"
     );
   }
+  
   if (content.length > ANNOUNCEMENT_VALIDATION_RULES.contentMax) {
     return (
-      "Текст должен быть меньше " +
+      "Content must be less than " +
       ANNOUNCEMENT_VALIDATION_RULES.contentMax +
-      " символов"
+      " characters"
     );
   }
 
@@ -72,54 +73,54 @@ export function validateFormUpdateCaptions(values) {
     !detailsCaption ||
     !contactsCaption
   ) {
-    return "Все поля должны быть заполнены";
+    return "All fields are required";
   }
 
   if (heroMajor.length > CAPTIONS_VALIDATION_RULES.heroMajorMax) {
     return (
-      "Заголовок должен быть меньше " +
+      "Caption must be less than " +
       CAPTIONS_VALIDATION_RULES.heroMajorMax +
-      " символов"
+      " characters"
     );
   }
 
   if (heroMinor.length > CAPTIONS_VALIDATION_RULES.heroMinorMax) {
     return (
-      "Подаголовок должен быть меньше " +
+      "Subcaption must be less than " +
       CAPTIONS_VALIDATION_RULES.heroMinorMax +
-      " символов"
+      " characters"
     );
   }
 
   if (newsCaption.length > CAPTIONS_VALIDATION_RULES.newsCaptionMax) {
     return (
-      "Название раздела публикаций должно быть меньше " +
+      "Announcements section title must be less than " +
       CAPTIONS_VALIDATION_RULES.newsCaptionMax +
-      " символов"
+      " characters"
     );
   }
 
   if (employeesCaption.length > CAPTIONS_VALIDATION_RULES.employeesCaptionMax) {
     return (
-      "Название раздела сотрудников должно быть меньше " +
+      "Employees section title must be less than " +
       CAPTIONS_VALIDATION_RULES.employeesCaptionMax +
-      " символов"
+      " characters"
     );
   }
 
   if (detailsCaption.length > CAPTIONS_VALIDATION_RULES.detailsCaptionMax) {
     return (
-      "Название раздела реквизитов должно быть меньше " +
+      "Details section title must be less than " +
       CAPTIONS_VALIDATION_RULES.detailsCaptionMax +
-      " символов"
+      " characters"
     );
   }
 
   if (contactsCaption.length > CAPTIONS_VALIDATION_RULES.contactsCaptionMax) {
     return (
-      "Название раздела контактов должно быть меньше " +
+      "Contacts section title must be less than " +
       CAPTIONS_VALIDATION_RULES.contactsCaptionMax +
-      " символов"
+      " characters"
     );
   }
 
@@ -131,35 +132,35 @@ export function validateFormUpdateCaptions(values) {
 //////////////
 
 export function validateFormUpdateContacts(values) {
-  const majorCaption = values.majorCaption;
+  const majorCaption = values.majorCaption.trim();
   const minorCaptions = [...values.minorCaptions];
 
   if (!majorCaption) {
-    return "Основное поле должно быть заполнено";
+    return "Main field is required";
   }
 
   if (majorCaption.length > CONTACTS_VALIDATION_RULES.majorCaptionMax) {
     return (
-      "Основное поле должно быть меньше " +
-      CAPTIONS_VALIDATION_RULES.majorCaptionMax +
-      " символов"
+      "Main field must be less than " +
+      CONTACTS_VALIDATION_RULES.majorCaptionMax +
+      " characters"
     );
   }
 
   for (let i = 0; i < minorCaptions.length; i++) {
-    const value = minorCaptions[i].value;
+    const value = minorCaptions[i].value.trim();
 
     if (!value) {
-      return "Дополнительное поле №" + (i + 1) + " должно быть заполнено";
+      return "Extra field #" + (i + 1) + " is required";
     }
 
     if (value.length > CONTACTS_VALIDATION_RULES.minorCaptionsMax) {
       return (
-        "Дополнительное поле №" +
+        "Extra field #" +
         (i + 1) +
-        " должно быть меньше" +
+        " must be less than " +
         CONTACTS_VALIDATION_RULES.minorCaptionsMax +
-        "символов"
+        " characters"
       );
     }
   }
@@ -173,19 +174,19 @@ export function validateFormUpdateContacts(values) {
 
 export function validateFormUpdateDetails(values) {
   for (let i = 0; i < values.length; i++) {
-    const value = values[i].value;
+    const value = values[i].value.trim();
 
     if (!value) {
-      return "Поле №" + (i + 1) + " должно быть заполнено";
+      return "Field #" + (i + 1) + " is required";
     }
 
     if (value.length > DETAILS_VALIDATION_RULES.stringMax) {
       return (
-        "Поле №" +
+        "Field #" +
         (i + 1) +
-        " должно быть меньше" +
+        " must be less than " +
         DETAILS_VALIDATION_RULES.stringMax +
-        "символов"
+        " characters"
       );
     }
   }
@@ -198,17 +199,17 @@ export function validateFormUpdateDetails(values) {
 ////////////////
 
 export function validateFormUpdateFooterLink(values) {
-  const caption = values.caption;
+  const caption = values.caption.trim();
 
   if (!caption) {
-    return "Поле должно быть заполнено";
+    return "Field is required";
   }
 
   if (caption.length > FOOTERLINK_VALIDATION_RULES.captionMax) {
     return (
-      "Длина текста должна быть меньше " +
+      "Value must be less than " +
       FOOTERLINK_VALIDATION_RULES.captionMax +
-      " символов."
+      " characters"
     );
   }
 

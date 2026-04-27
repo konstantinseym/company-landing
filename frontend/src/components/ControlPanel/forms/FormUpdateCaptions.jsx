@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { CAPTIONS_VALIDATION_RULES } from "../validation/validationRules.js";
-import { updateCaptions } from "../api/updatecaptions.js";
+import { updateCaptions } from "../api/updateCaptions.js";
 import { validateFormUpdateCaptions } from "../validation/validationForms.js";
 
 import styles from "../Forms.module.css";
