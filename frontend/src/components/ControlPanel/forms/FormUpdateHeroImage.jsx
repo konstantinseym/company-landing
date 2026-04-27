@@ -1,5 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
+
+import { updateHeroImage } from "../api/updateHeroImage.js";
 
 import styles from "../Forms.module.css";
 
@@ -35,7 +36,7 @@ export default function FormUpdateHeroImage() {
 
     try {
       setIsLoading(true);
-      await axios.put("/api/hero-background", formData);
+      await updateHeroImage(formData);
       setFile(null);
     } catch (err) {
       console.log(err);
@@ -48,11 +49,7 @@ export default function FormUpdateHeroImage() {
     <form className={styles.form} onSubmit={handleSubmit}>
       <h2 className={styles.title}>Upload HERO background</h2>
       <label className={styles.file}>
-        <input
-          type="file"
-          accept="image/png"
-          onChange={handleFileChange}
-        />
+        <input type="file" accept="image/png" onChange={handleFileChange} />
         <p className={styles.text}>{file ? file.name : "upload file"}</p>
       </label>
       <p className={styles.text}>Max file size 10MB (PNG)</p>

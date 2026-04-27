@@ -26,3 +26,9 @@ export const DETAILS_VALIDATION_RULES = {
 export const FOOTERLINK_VALIDATION_RULES = {
   captionMax: 256,
 };
+
+export const EMPLOYEE_VALIDATION_RULES = {
+  nameMax: 128,
+  roleMax: 128,
+  altMax: 128,
+};

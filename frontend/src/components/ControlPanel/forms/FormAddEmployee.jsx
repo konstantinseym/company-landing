@@ -1,16 +1,20 @@
 import { useState } from "react";
-import axios from "axios";
+
+import { addEmployee } from "../api/addEmployee.js";
+import { validateFormAddEmployee } from "../validation/validationForms.js";
 
 import styles from "../Forms.module.css";
+
+const INITIAL_FORM_STATE = {
+  name: "",
+  role: "",
+  alt: "",
+};
 
 export default function FormAddEmployee({ handleAddEmployee }) {
   const [file, setFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [formValues, setFormValues] = useState({
-    name: "",
-    role: "",
-    alt: "",
-  });
+  const [formValues, setFormValues] = useState(INITIAL_FORM_STATE);
 
   function handleFileChange(e) {
     const allowedTypes = ["image/jpeg", "image/png"];
@@ -35,20 +39,28 @@ export default function FormAddEmployee({ handleAddEmployee }) {
   async function handleSubmit(e) {
     e.preventDefault();
 
+    const normalizedData = {
+      name: formValues.name.trim(),
+      role: formValues.role.trim(),
+      alt: formValues.alt.trim(),
+    };
+
+    const validationError = validateFormAddEmployee(normalizedData);
+    if (validationError) {
+      alert(validationError);
+      return;
+    }
+
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("data", JSON.stringify(formValues));
+    formData.append("data", JSON.stringify(normalizedData));
 
     try {
       setIsLoading(true);
-      await axios.post("/api/employees", formData);
+      await addEmployee(formData);
       setFile(null);
+      setFormValues(INITIAL_FORM_STATE);
       handleAddEmployee();
-      setFormValues({
-        name: "",
-        role: "",
-        alt: "",
-      });
     } catch (err) {
       console.log(err);
     } finally {

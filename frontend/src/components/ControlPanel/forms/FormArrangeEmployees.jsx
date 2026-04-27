@@ -1,5 +1,6 @@
-import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import { arrangeEmployees } from "../api/arrangeEmployees.js";
 
 import styles from "../Forms.module.css";
 
@@ -9,6 +10,10 @@ export default function FormArrangeEmployees({
 }) {
   const [employeesOrder, setEmployeesOrder] = useState(employees);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setEmployeesOrder(employees);
+  }, [employees]);
 
   function moveUp(index) {
     if (index === 0) return;
@@ -44,11 +49,15 @@ export default function FormArrangeEmployees({
       position: index + 1,
     }));
 
-    await axios.put("/api/employees", normalizedOrder, {
-      withCredentials: true,
-      headers: { "Content-Type": "application/json" },
-    });
-    handleArrangeEmployees();
+    try {
+      setIsLoading(true);
+      await arrangeEmployees(normalizedOrder);
+      handleArrangeEmployees();
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (

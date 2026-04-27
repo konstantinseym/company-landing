@@ -1,5 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
+
+import { updatePolicy } from "../api/updatePolicy.js";
 
 import styles from "../Forms.module.css";
 
@@ -35,7 +36,7 @@ export default function FormUpdatePolicy() {
 
     try {
       setIsLoading(true);
-      await axios.put("/api/policy", formData);
+      await updatePolicy(formData);
       setFile(null);
     } catch (err) {
       console.log(err);

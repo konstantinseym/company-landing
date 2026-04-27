@@ -4,6 +4,7 @@ import {
   CONTACTS_VALIDATION_RULES,
   DETAILS_VALIDATION_RULES,
   FOOTERLINK_VALIDATION_RULES,
+  EMPLOYEE_VALIDATION_RULES,
 } from "./validationRules.js";
 
 ///////////////////
@@ -41,7 +42,7 @@ export function validateFormAddAnnouncement(values) {
       " characters"
     );
   }
-  
+
   if (content.length > ANNOUNCEMENT_VALIDATION_RULES.contentMax) {
     return (
       "Content must be less than " +
@@ -209,6 +210,46 @@ export function validateFormUpdateFooterLink(values) {
     return (
       "Value must be less than " +
       FOOTERLINK_VALIDATION_RULES.captionMax +
+      " characters"
+    );
+  }
+
+  return null;
+}
+
+////////////////
+// EMPLOYEE   //
+////////////////
+
+export function validateFormAddEmployee(values) {
+  const name = values.name;
+  const role = values.role;
+  const alt = values.alt;
+
+  if (!name || !role || !alt) {
+    return "All fields are required";
+  }
+
+  if (name.length > EMPLOYEE_VALIDATION_RULES.nameMax) {
+    return (
+      "Name must be less than " +
+      EMPLOYEE_VALIDATION_RULES.nameMax +
+      " characters"
+    );
+  }
+
+  if (role.length > EMPLOYEE_VALIDATION_RULES.roleMax) {
+    return (
+      "Role must be less than " +
+      EMPLOYEE_VALIDATION_RULES.roleMax +
+      " characters"
+    );
+  }
+
+  if (alt.length > EMPLOYEE_VALIDATION_RULES.altMax) {
+    return (
+      "Alt must be less than " +
+      EMPLOYEE_VALIDATION_RULES.altMax +
       " characters"
     );
   }

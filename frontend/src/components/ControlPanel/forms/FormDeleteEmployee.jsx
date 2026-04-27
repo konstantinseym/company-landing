@@ -1,5 +1,6 @@
-import axios from "axios";
 import { useState } from "react";
+
+import { deleteEmployee } from "../api/deleteEmployee.js";
 
 import styles from "../Forms.module.css";
 
@@ -16,12 +17,7 @@ export default function FormDeleteEmployee({
 
     try {
       setDeletingId(id);
-
-      await axios.delete("/api/employees/" + id, {
-        withCredentials: true,
-        headers: { "Content-Type": "application/json" },
-      });
-
+      await deleteEmployee(id);
       handleDeleteEmployee?.();
     } catch (err) {
       console.log(err);
