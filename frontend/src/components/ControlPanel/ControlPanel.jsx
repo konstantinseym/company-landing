@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { logout } from "./api/auth.js";
 
 import AnnouncementsSection from "./sections/AnnouncementsSection.jsx";
 import EmployeesSection from "./sections/EmployeesSection.jsx";
@@ -20,6 +22,7 @@ const SECTIONS = {
 export default function ControlPanel() {
   const [appData, setAppData] = useState(null);
   const [activeSection, setActiveSection] = useState(SECTIONS.news);
+  const navigate = useNavigate();
 
   async function fetchAppData() {
     try {
@@ -101,6 +104,17 @@ export default function ControlPanel() {
                 onClick={() => setActiveSection(SECTIONS.captions)}
               >
                 Captions
+              </button>
+            </li>
+            <li>
+              <button
+                className={styles.btn}
+                onClick={async () => {
+                  await logout();
+                  navigate("/auth");
+                }}
+              >
+                Logout
               </button>
             </li>
           </ul>

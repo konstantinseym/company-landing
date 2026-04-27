@@ -26,3 +26,13 @@ export async function createSession(req, res, next) {
     next(err);
   }
 }
+
+export async function deleteSession(req, res, next) {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500);
+    }
+    res.clearCookie("sessionId");
+    res.status(204).send();
+  });
+}

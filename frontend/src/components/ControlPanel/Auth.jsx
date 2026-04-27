@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { login } from "./api/auth.js";
 
 import styles from "./Auth.module.css";
 
@@ -10,12 +11,7 @@ export default function Auth() {
 
   async function handleLogin(e) {
     e.preventDefault();
-
-    await axios.post(
-      "/api/session",
-      { password: passwordInputValue },
-      { withCredentials: true },
-    );
+    await login(passwordInputValue);
     navigate("/controlpanel");
   }
 
