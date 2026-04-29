@@ -11,6 +11,8 @@ import { employeesRouter } from "./routes/employees.routes.js";
 
 export const app = express();
 
+app.set("trust proxy", 1);
+
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(express.json({ limit: "100kb" }));
 app.use("/uploads", express.static("uploads"));

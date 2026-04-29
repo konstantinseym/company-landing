@@ -1,3 +1,4 @@
+import { loginRateLimit } from "../middlewares/loginRateLimit.js";
 import { Router } from "express";
 import {
   createSession,
@@ -8,5 +9,5 @@ import {
 export const sessionRouter = Router();
 
 sessionRouter.get("/", getSession);
-sessionRouter.post("/", createSession);
+sessionRouter.post("/", loginRateLimit, createSession);
 sessionRouter.delete("/", deleteSession);

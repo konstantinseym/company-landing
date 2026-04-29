@@ -6,7 +6,7 @@ export const sessionConfig = {
   rolling: true,
   cookie: {
     httpOnly: true,
-    secure: false,
+    secure: true,
     sameSite: "lax",
     maxAge: 1000 * 60 * 60,
   },

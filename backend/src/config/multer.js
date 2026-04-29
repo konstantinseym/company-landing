@@ -3,6 +3,15 @@ import path from "path";
 
 const UPLOADS_DIR = path.resolve("uploads");
 
+function mimeFilter(allowedTypes) {
+  return (req, file, cb) => {
+    if (!allowedTypes.includes(file.mimetype)) {
+      return cb(new Error("invalid file type"));
+    }
+    cb(null, true);
+  };
+}
+
 const defaultStorage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, UPLOADS_DIR),
   filename: (req, file, cb) => {
@@ -23,15 +32,18 @@ const policyStorage = multer.diskStorage({
 
 export const upload = multer({
   storage: defaultStorage,
-  limits: { fileSize: 10 * 1024 * 1024 },
+  limits: { fileSize: 10 * 1024 * 1024, files: 1 },
+  fileFilter: mimeFilter(["image/jpeg", "image/png"]),
 });
 
 export const uploadHeroBG = multer({
   storage: heroBGStorage,
-  limits: { fileSize: 10 * 1024 * 1024 },
+  limits: { fileSize: 10 * 1024 * 1024, files: 1 },
+  fileFilter: mimeFilter(["image/png"]),
 });
 
 export const uploadPolicy = multer({
   storage: policyStorage,
-  limits: { fileSize: 10 * 1024 * 1024 },
+  limits: { fileSize: 10 * 1024 * 1024, files: 1 },
+  fileFilter: mimeFilter(["application/pdf"]),
 });
